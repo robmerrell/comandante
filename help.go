@@ -17,7 +17,7 @@ func createHelpCommand(com *comandante, w io.Writer) *Command {
 			cmd := com.getCommand(cmdName)
 
 			if cmd != nil && cmdName != "help" {
-				fmt.Fprintf(w, "%s\n\n%s\n", cmdName, cmd.Documentation)
+				fmt.Fprintf(w, "%s %s\n%s", com.binaryName, cmdName, cmd.Documentation)
 
 				if cmd.FlagInit != nil {
 					fmt.Fprintf(w, "\noptions\n")
