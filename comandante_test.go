@@ -25,6 +25,25 @@ func TestComandanteNew(t *testing.T) {
 	}
 }
 
+func TestRunCommand(t *testing.T) {
+	c := New("binaryName", "")
+
+	a := false
+	cmd := NewCommand("test", "short description", func() error { a = true; return nil })
+	c.RegisterCommand(cmd)
+
+	oldArgs := os.Args
+	os.Args = []string{"bin", "test"}
+
+	c.Run()
+
+	if a != true {
+		t.Error("a should be true. It looks like the command didn't run")
+	}
+
+	os.Args = oldArgs
+}
+
 func TestRegisterCommand(t *testing.T) {
 	c := New("binaryName", "")
 

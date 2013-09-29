@@ -16,7 +16,7 @@ func createHelpCommand(com *comandante, w io.Writer) *Command {
 			cmdName := os.Args[2]
 			cmd := com.getCommand(cmdName)
 
-			if cmd != nil {
+			if cmd != nil && cmdName != "help" {
 				fmt.Fprintf(w, "%s\n\n%s\n", cmdName, cmd.Documentation)
 
 				if cmd.FlagInit != nil {

@@ -52,21 +52,22 @@ func (c *comandante) RegisterCommand(cmd *Command) error {
 }
 
 // Run finds a command based on the command line argument and invokes
-// the command in the case that one is found. Returns error if not.
+// the command in the case that one is found.
 func (c *comandante) Run() error {
 	cmdName, err := getCmdName(os.Args)
-	if err != nil {
-		return err
+	if err != nil || cmdName == "--help" || cmdName == "-h" {
+		c.printDefaultHelp(os.Stderr)
+		return nil
 	}
 
 	// invoke the command
 	cmd := c.getCommand(cmdName)
 	if cmd != nil {
-		cmd.Action()
+		return cmd.Action()
 	}
 
-	msg := fmt.Sprintf("The command '%s' was not found", cmdName)
-	return errors.New(msg)
+	c.printDefaultHelp(os.Stderr)
+	return nil
 }
 
 // IncludeHelp adds the built in help command.
