@@ -24,7 +24,7 @@ type Command struct {
 	// Action is the function called when the command is invoked
 	Action actionFunc
 
-	// ArgInit is the function called to handle delaing with flags sent to the command
+	// FlagInit is the function called to handle delaing with flags sent to the command
 	FlagInit flagInitFunc
 
 	// flagset is for handling command lines flags passed into the command
