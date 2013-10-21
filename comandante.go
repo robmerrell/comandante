@@ -10,7 +10,7 @@ import (
 	"text/template"
 )
 
-type comandante struct {
+type Comandante struct {
 	// binaryName is the name of the binary that will be used to invoke all commands
 	binaryName string
 
@@ -23,8 +23,8 @@ type comandante struct {
 }
 
 // New creates a new comandante
-func New(binaryName, description string) *comandante {
-	c := &comandante{
+func New(binaryName, description string) *Comandante {
+	c := &Comandante{
 		binaryName:         binaryName,
 		description:        description,
 		registeredCommands: make([]*Command, 0),
@@ -34,7 +34,7 @@ func New(binaryName, description string) *comandante {
 }
 
 // RegisterCommand tells Comandante about a command so that it can be used.
-func (c *comandante) RegisterCommand(cmd *Command) error {
+func (c *Comandante) RegisterCommand(cmd *Command) error {
 	// return an error if a command of the same name already exists
 	for _, registeredCmd := range c.registeredCommands {
 		if cmd.Name == registeredCmd.Name {
@@ -53,7 +53,7 @@ func (c *comandante) RegisterCommand(cmd *Command) error {
 
 // Run finds a command based on the command line argument and invokes
 // the command in the case that one is found.
-func (c *comandante) Run() error {
+func (c *Comandante) Run() error {
 	cmdName, err := getCmdName(os.Args)
 	if err != nil || cmdName == "--help" || cmdName == "-h" {
 		c.printDefaultHelp(os.Stderr)
@@ -71,13 +71,13 @@ func (c *comandante) Run() error {
 }
 
 // IncludeHelp adds the built in help command.
-func (c *comandante) IncludeHelp() {
+func (c *Comandante) IncludeHelp() {
 	cmd := createHelpCommand(c, os.Stderr)
 	c.RegisterCommand(cmd)
 }
 
 // getCommand retrieves a registered command.
-func (c *comandante) getCommand(cmdName string) *Command {
+func (c *Comandante) getCommand(cmdName string) *Command {
 	for _, cmd := range c.registeredCommands {
 		if cmdName == cmd.Name {
 			return cmd
@@ -88,7 +88,7 @@ func (c *comandante) getCommand(cmdName string) *Command {
 }
 
 // printDefaultHelp prints the default help text
-func (c *comandante) printDefaultHelp(w io.Writer) {
+func (c *Comandante) printDefaultHelp(w io.Writer) {
 	tpl := template.New("usage")
 
 	data := struct {
@@ -108,7 +108,7 @@ func (c *comandante) printDefaultHelp(w io.Writer) {
 }
 
 // collectCommands
-func (c *comandante) collectCommandsForHelp() []*printableCommand {
+func (c *Comandante) collectCommandsForHelp() []*printableCommand {
 	// find the longest command
 	longest := 0
 	for _, cmd := range c.registeredCommands {

@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func createHelpCommand(com *comandante, w io.Writer) *Command {
+func createHelpCommand(com *Comandante, w io.Writer) *Command {
 	action := func() error {
 		// The first parameter passed to the help command should be the
 		// command for requested documentation.
