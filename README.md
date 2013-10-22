@@ -4,15 +4,25 @@ Simple command line interfaces.
 
 [![Build Status](https://travis-ci.org/robmerrell/comandante.png?branch=master)](https://travis-ci.org/robmerrell/comandante)
 
+[Example App](http://github.com/robmerrell/comandante_example)
+
 [API Documentation](http://godoc.org/github.com/robmerrell/comandante)
 
 ## What is Comandante
 
-Take a look at the go tool. When you run the go command you are presented with help text listing the available subcommands. 
-Each subcommand has its own command line flags and documentation. Comandante makes creating binaries with subcommands easy.
+Many command line tools are structured to accept subcommands. Like the go tool. When you run the go command you are presented with help 
+text listing the available subcommands. Each subcommand has its own command line flags and documentation. Comandante makes creating binaries 
+with subcommands easy.
 
 So what does Comandante look like? Let's say that you are creating a program called "coolbinary" with two subcommands: "sayhi" and "demo". 
-If you were to run coolbinary without a subcommand you would get this output:
+If you were to run coolbinary without a subcommand 
+
+```bash
+$ coolbinary
+```
+
+you would get this output:
+
 
 ```
 Do cool things from the commandline

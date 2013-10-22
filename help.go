@@ -20,6 +20,8 @@ func createHelpCommand(com *Comandante, w io.Writer) *Command {
 				fmt.Fprintf(w, "%s %s\n%s", com.binaryName, cmdName, cmd.Documentation)
 
 				if cmd.FlagInit != nil {
+					cmd.FlagInit(&cmd.flagSet)
+
 					fmt.Fprintf(w, "\noptions\n")
 
 					cmd.flagSet.SetOutput(w)

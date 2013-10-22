@@ -2,6 +2,7 @@ package comandante
 
 import (
 	"errors"
+	"flag"
 	"fmt"
 	"io"
 	"os"
@@ -43,10 +44,6 @@ func (c *Comandante) RegisterCommand(cmd *Command) error {
 		}
 	}
 
-	if cmd.FlagInit != nil {
-		cmd.FlagInit(&cmd.flagSet)
-	}
-
 	c.registeredCommands = append(c.registeredCommands, cmd)
 	return nil
 }
@@ -63,6 +60,12 @@ func (c *Comandante) Run() error {
 	// invoke the command
 	cmd := c.getCommand(cmdName)
 	if cmd != nil {
+		if cmd.FlagInit != nil {
+			cmd.FlagInit(&cmd.flagSet)
+			flag.Parse()
+			cmd.flagSet.Parse(flag.Args()[1:])
+		}
+
 		return cmd.Action()
 	}
 
@@ -149,7 +152,6 @@ Usage:
 
 Available commands: {{ range .Commands}}
 {{.PaddedName}}  {{.Description}}{{ end }}
-	
 {{if .ShowHelpCommand}}
 Use "{{.BinaryName}} help [command]" for more information about a command.
 {{end}}

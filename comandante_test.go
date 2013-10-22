@@ -70,6 +70,7 @@ func TestCommandArgs(t *testing.T) {
 	cmd.FlagInit = func(fs *flag.FlagSet) {
 		fs.StringVar(&testFlag, "testing", "", "This is the usage")
 	}
+	cmd.FlagInit(&cmd.flagSet)
 	c.RegisterCommand(cmd)
 	cmd.parseFlags([]string{"--testing=value"})
 
