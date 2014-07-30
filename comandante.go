@@ -64,6 +64,10 @@ func (c *Comandante) Run() error {
 			cmd.FlagInit(&cmd.flagSet)
 			flag.Parse()
 			cmd.flagSet.Parse(flag.Args()[1:])
+
+			if cmd.FlagPostParse != nil {
+				cmd.FlagPostParse(&cmd.flagSet)
+			}
 		}
 
 		return cmd.Action()

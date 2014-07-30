@@ -6,6 +6,7 @@ import (
 
 type actionFunc func() error
 type flagInitFunc func(*flag.FlagSet)
+type flagPostParseFunc func(*flag.FlagSet)
 
 // Command details a command that can be run from the command line
 type Command struct {
@@ -26,6 +27,9 @@ type Command struct {
 
 	// FlagInit is the function called to handle delaing with flags sent to the command
 	FlagInit flagInitFunc
+
+	// FlagPostParse is the function called after the flagset has been parsed
+	FlagPostParse flagPostParseFunc
 
 	// flagset is for handling command lines flags passed into the command
 	flagSet flag.FlagSet
