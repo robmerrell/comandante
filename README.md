@@ -2,7 +2,7 @@
 
 Simple command line interfaces.
 
-[![Build Status](https://travis-ci.org/robmerrell/comandante.png?branch=master)](https://travis-ci.org/robmerrell/comandante)
+[![Build Status](https://travis-ci.org/robmerrell/comandante.svg?branch=master)](https://travis-ci.org/robmerrell/comandante)
 
 [Example App](http://github.com/robmerrell/comandante_example)
 
@@ -22,7 +22,6 @@ $ coolbinary
 ```
 
 you would get this output:
-
 
 ```
 Do cool things from the commandline
@@ -58,17 +57,18 @@ if err := bin.Run(); err != nil {
 }
 ```
 
-If you were to invoke the sayhi subcommand
+If you were to invoke the `sayhi` subcommand
 
 ```bash
 $ coolbinary sayhi
 ```
 
-helloFunction would be called
+`helloFunction` would be called
 
 ## Installation
 
-Install to your GOPATH with
+Install to your `GOPATH` with
+
 ```bash
 $ go get github.com/robmerrell/comandante
 ```
